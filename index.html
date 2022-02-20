@@ -1,116 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-        .tumblers {
-            width: 33vw;
-            margin: auto;
-            display: grid;
-            grid-template-columns: auto auto auto;
-            background-color: hotpink;
-            overflow-y: hidden;
-        }
-        .tumbler {
-            border: solid 2px black;
-            width: 140px;
-            height: 300px;
-        }
-        .tumbler div {
-            position: relative;
-            bottom: 1px;
-            height: 100%;
-            margin: auto;
-        }
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 3rem;
-        }
-        .controls button {
-            padding: 3rem;
-            background-color: red;
-            color: white;
-            font-size: 100px;
-            border: solid 0px;
-            border-radius: 3rem;
-        }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <header>
-        <h1>Fruit Machine</h1>
+      <h1>Fruit Machine</h1>
     </header>
     <main>
-        <section class="tumblers">
-            <article class="tumbler">
-                <div id="tumbler-01"></div>
-            </article>
-        </section>
-        <section class="controls">
-            <button onclick="spin()">Play</button>
-        </section>
+      <section class="tumblers">
+        <div class="gradient-top"></div>
+        <article class="tumbler">
+          <div id="tumbler-01"></div>
+        </article>
+        <article class="tumbler">
+          <div id="tumbler-02"></div>
+        </article>
+        <article class="tumbler">
+          <div id="tumbler-03"></div>
+        </article>
+        <div class="gradient-bottom"></div>
+      </section>
+
+      <section class="controls">
+        <button class="button" id="btn-hold-01" onclick="hold1()">Hold</button>
+        <button class="button" id="btn-hold-02" onclick="hold2()">Hold</button>
+        <button class="button" id="btn-hold-03" onclick="hold3()">Hold</button>
+        <button class="button" onclick="nudge('tumbler-01')">Nudge</button>
+        <button class="button" onclick="nudge('tumbler-02')">Nudge</button>
+        <button class="button" onclick="nudge('tumbler-03')">Nudge</button>
+        <button class="button" id="btn-spin-all" onclick="spinAll()">
+          Spin
+        </button>
+        <button class="button" id="btn-result" onclick="outputResult()">
+          Result
+        </button>
+      </section>
+      <section>
+        <div id="winnings">Winnings</div>
+      </section>
     </main>
-    <script>
-        class Fruit {
-            constructor(imgFile) {
-                const element = document.createElement('div')
-                element.setAttribute('style', `
-                    background-image: url(./${imgFile}.png);
-                    background-size: cover;
-                    background-position: center;
-                    height: 105px;
-                    width: 105px;
-                    position: relative;
-                `)
-                document.getElementById('tumbler-01').appendChild(element)
-                this.el = element
-            }
-
-            setPos(bottom) {
-                this.el.style.top = `${bottom}px`
-            }
-        }
-        class Spinner {
-            constructor(tumberNum) {
-                this.fruits = [
-                    new Fruit('01'),
-                    new Fruit('02'),
-                    new Fruit('03'),
-                    new Fruit('04')
-                ]
-                this.element = document.getElementById(`tumbler-${tumberNum}`)
-                this.fruits.forEach((fruit, index) => {
-                    // const bottom = 105 * index
-                    // console.log({index, bottom})
-                    // fruit.setPos(bottom)
-                })
-            }
-        }
-
-        new Spinner('01')
-
-        // let spinning = false
-        // function spin() {
-        //     if (spinning) return
-        //     const spinId = setInterval(() => {
-        //         spinning = true
-        //         const t1 = document.getElementById('tumbler-01')
-        //         const bottom = window.getComputedStyle(t1)
-        //         const currentVal = bottom['bottom'].substring(0, bottom['bottom'].length - 2)
-        //         const nextVal = Number(currentVal) - 5
-        //         t1.style.bottom = `${nextVal}px`
-        //         if (nextVal < -850) {
-        //             t1.style.bottom = `-3px`
-        //             // clearInterval(spinId)
-        //             // spinning = false
-        //         }
-        //     }, 10)
-        // }
-    </script>
-</body>
+    <script src="main.js"></script>
+  </body>
 </html>
